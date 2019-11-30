@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>Lunch Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+      .message { font-size: 1.3em; font-weight: bold; }
+    </style>
+  </head>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+ <script>
+var app = angular.module('LunchCheck', []);
+app.controller('myCtrl', function($scope) {
+  $scope.lunch_menu = "John";
+});
+</script>
+<script id="__bs_script__">//<![CDATA[
+    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace("HOST", location.hostname));
+//]]>
+</script>
+
+<body>
+   <div class="container">
+     <h1>Lunch Checker</h1>
+
+         <div class="form-group"  ng-app="LunchCheck" ng-controller="myCtrl">
+             <input id="lunch_menu" ng-model = "lunch_menu" type="text"
+             placeholder="list comma separated dishes you usually have for lunch"
+             class="form-control">
+         </div>
+         <div class="form-group">
+             <button class="btn btn-default">Check If Too Much123</button>
+         </div>
+         <div class="form-group message">
+           <!-- Your message can go here. -->
+         </div>
+   </div>
+
+</body>
+</html>
