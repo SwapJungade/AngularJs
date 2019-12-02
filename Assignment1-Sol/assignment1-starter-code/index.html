@@ -9,35 +9,58 @@
       .message { font-size: 1.3em; font-weight: bold; }
     </style>
   </head>
- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
- <script>
-var app = angular.module('LunchCheck', []);
-app.controller('myCtrl', function($scope) {
-  $scope.lunch_menu = "John";
-});
-</script>
-<script id="__bs_script__">//<![CDATA[
-    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace("HOST", location.hostname));
-//]]>
+<script>
+(function() {
+    'use strict';
+
+    angular.module('LunchCheck', [])
+           .controller('LunchCheckController', LunchCheckController);
+
+    LunchCheckController.$inject = ['$scope'];
+
+    function LunchCheckController ($scope) {
+        $scope.input = "";
+        $scope.message = "";
+        $scope.stack = function() {
+            // already can access $scope.input
+            // dont need to pass to stack()
+            var array = $scope.input.split(',');
+          //  alert($scope.input.length);
+          //  alert(array.length);
+            // set $scope.message
+            // instead of returning String
+            if(array.length==1 && $scope.input.length == 0){
+                $scope.message = "Please enter data first";
+            }else if (array.length <=3) {
+                $scope.message = "Enjoy";
+            } else {
+                $scope.message = "Too much!";
+            }
+        };
+    }
+})();
 </script>
 
-<body>
-   <div class="container">
+<body ng-app="LunchCheck">
+   <div class="container" ng-controller="LunchCheckController">
      <h1>Lunch Checker</h1>
-
-         <div class="form-group"  ng-app="LunchCheck" ng-controller="myCtrl">
-             <input id="lunch_menu" ng-model = "lunch_menu" type="text"
-             placeholder="list comma separated dishes you usually have for lunch"
-             class="form-control">
+         <div class="form-group" >
+             <input id="lunch-menu" type="text"
+                 placeholder="list comma separated dishes you usually have for lunch"
+                 class="form-control" ng-model="input">
          </div>
          <div class="form-group">
-             <button class="btn btn-default">Check If Too Much123</button>
-         </div>
-         <div class="form-group message">
-           <!-- Your message can go here. -->
-         </div>
-   </div>
 
+         <button class="btn btn-default" ng-click="stack()">
+           Check If Too Much
+         </button>
+       </div>
+       <div class="form-group message" id="result">
+           <!-- Your message can go here. -->
+           {{message}}
+       </div>
+   </div>
 </body>
 </html>
